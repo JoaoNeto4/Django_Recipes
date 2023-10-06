@@ -10,6 +10,7 @@ fake = Faker('pt_BR')
 
 def make_recipe():
     return {
+        'id': fake.random_number(),
         'title': fake.random_number(),
         'description': fake.random_number(),
         'preparation_time': fake.sentence(2),
