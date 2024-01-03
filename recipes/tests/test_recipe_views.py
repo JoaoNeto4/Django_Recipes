@@ -1,12 +1,12 @@
-from django.test import TestCase
 from django.urls import reverse, resolve
 from recipes import views
-from recipes.models import Category, Recipe
-from django.contrib.auth.models import User
+from .recipe_test_base import RecipeTestBase
+from unittest import skip
 
+class RecipeViewsTest(RecipeTestBase):    
 
-class RecipeViewsTest(TestCase):
-
+    def tearDown(self) -> None:
+        return super().tearDown()
 
     def test_recipe_home_views_function_is_correct(self):
         '''
@@ -38,34 +38,19 @@ class RecipeViewsTest(TestCase):
             response.content.decode('utf-8')
         )
 
+        #finalize
+        #self.fail('Working')
 
+    #@skip('Work In Progress')
     def test_recipe_home_template_loads_recipes(self):
         '''
         fixture,
         code smelling
         '''
-        category = Category.objects.create(name='Category')
-        author = User.objects.create_user(
-            firt_name='user',
-            last_name='name',
-            username='username',
-            password='123456',
-            email='username@email.com',
-        )
-        recipe = Recipe.objects.create(
-            category=category,
-            author=author,
-            title = 'Recipe title',
-            description = 'Recipe description',
-            slug = 'Recipe slug',
-            preparation_time = 10,
-            preparation_time_unit = 'Minutos',
-            servings = 5,
-            servings_unit = 'Porções',
-            preparation_steps = 'Recipe preparation steps',
-            preparation_steps_is_html = False,
-            is_published = True,
-        )
+
+        # Need a recipe for this test
+        self.make_recipe()
+
         #response = self.client.get(reverse('recipes:home'))
         #response_recipes = response.context['recipes']
         #self.assertEqual(response_recipes.first().title, 'Recipe title')
